@@ -1,22 +1,31 @@
 import { Button, Card, Checkbox, Label, TextInput } from "flowbite-react";
-
+import { useForm, SubmitHandler } from "react-hook-form"
 
 const Login = () => {
+
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const onSubmit = (data) => {
+        console.log(data)
+    }
+
+    
     return (
         <div className="mt-12">
             <Card className="max-w-sm mx-auto">
-                <form className="flex flex-col gap-4">
+                <form onSubmit={handleSubmit(onSubmit)}
+                    className="flex flex-col gap-4">
                     <div>
                         <div className="mb-2 block">
-                            <Label htmlFor="email1" value="Your email" />
+                            <Label value="Your email" />
                         </div>
-                        <TextInput id="email1" type="email" placeholder="name@flowbite.com" required />
+                        <TextInput {...register("email", { required: true})} type="email" placeholder="Your Email"/>
                     </div>
                     <div>
                         <div className="mb-2 block">
-                            <Label htmlFor="password1" value="Your password" />
+                            <Label value="Your password" />
                         </div>
-                        <TextInput id="password1" type="password" required />
+                        <TextInput  {...register("password", { required: true})} type="password" placeholder="Password" />
                     </div>
                     <div className="flex items-center gap-2">
                         <Checkbox id="remember" />
